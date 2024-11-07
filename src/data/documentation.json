@@ -1,0 +1,52 @@
+{
+    "javascript": {
+        "title": "JavaScript Fundamentals",
+        "sections": [
+            {
+                "title": "Core JavaScript Concepts",
+                "content": "<p>JavaScript is a versatile programming language with key features like variables, functions, and objects.</p><ul><li>Variables store data using let, const, var</li><li>Functions are reusable blocks of code</li><li>Objects group related data and functionality</li></ul>",
+                "code": "const greeting = 'Hello World';\nlet counter = 0;\n\nfunction increment() {\n  counter++;\n  return counter;\n}\n\nconst user = {\n  name: 'John',\n  age: 30,\n  greet() {\n    return `Hello ${this.name}`;\n  }\n};"
+            }
+        ]
+    },
+    "react": {
+        "title": "React Framework",
+        "sections": [
+            {
+                "title": "React Components",
+                "content": "<p>React components are the building blocks of React applications.</p><ul><li>Function components are modern and preferred</li><li>Props pass data between components</li><li>State manages component data</li></ul>",
+                "code": "function Welcome(props) {\n  const [count, setCount] = useState(0);\n  \n  return (\n    <div>\n      <h1>Hello, {props.name}</h1>\n      <button onClick={() => setCount(count + 1)}>\n        Clicked {count} times\n      </button>\n    </div>\n  );\n}"
+            }
+        ]
+    },
+    "css": {
+        "title": "CSS Styling",
+        "sections": [
+            {
+                "title": "CSS Fundamentals",
+                "content": "<p>CSS styles the visual presentation of web pages.</p><ul><li>Selectors target HTML elements</li><li>Properties define styles</li><li>Flexbox and Grid for layout</li></ul>",
+                "code": ".container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.box {\n  background-color: #3498db;\n  padding: 20px;\n  border-radius: 8px;\n  color: white;\n}"
+            }
+        ]
+    },
+    "nodejs": {
+        "title": "Node.js Development",
+        "sections": [
+            {
+                "title": "Node.js Basics",
+                "content": "<p>Node.js enables server-side JavaScript execution.</p><ul><li>Event-driven architecture</li><li>Non-blocking I/O operations</li><li>NPM package management</li></ul>",
+                "code": "const http = require('http');\n\nconst server = http.createServer((req, res) => {\n  res.writeHead(200, {'Content-Type': 'text/plain'});\n  res.end('Hello World\\n');\n});\n\nserver.listen(3000, () => {\n  console.log('Server running at http://localhost:3000/');\n});"
+            }
+        ]
+    },
+    "html": {
+        "title": "HTML Structure",
+        "sections": [
+            {
+                "title": "HTML Elements",
+                "content": "<p>HTML provides the structure for web documents.</p><ul><li>Semantic elements give meaning</li><li>Forms collect user input</li><li>Media elements display content</li></ul>",
+                "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Sample Page</title>\n</head>\n<body>\n  <header>\n    <h1>Welcome</h1>\n  </header>\n  <main>\n    <article>\n      <h2>Main Content</h2>\n      <p>This is a sample page structure.</p>\n    </article>\n  </main>\n  <footer>\n    <p>&copy; 2023</p>\n  </footer>\n</body>\n</html>"
+            }
+        ]
+    }
+}
