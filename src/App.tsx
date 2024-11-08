@@ -6,10 +6,12 @@ import Guide from "./pages/Guide";
 import Search from "./pages/Search";
 import { TranslationProvider } from "./contexts/TranslationContext";
 import PreAlphaNotification from "./components/PreAlphaNotification";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
     <TranslationProvider>
+      <Analytics />
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
         <Navbar />
         <main>
