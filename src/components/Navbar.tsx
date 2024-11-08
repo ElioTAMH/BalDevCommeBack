@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Code2, Github } from 'lucide-react';
+import LanguageSelector from './LanguageSelector';
 
 export default function Navbar() {
   return (
@@ -16,6 +17,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             <Link to="/docs" className="text-gray-700 hover:text-indigo-600">Documentation</Link>
             <Link to="/search" className="text-gray-700 hover:text-indigo-600">Search</Link>
+            <LanguageSelector />
             <a href="https://github.com" className="text-gray-700 hover:text-indigo-600">
               <Github className="h-5 w-5" />
             </a>
