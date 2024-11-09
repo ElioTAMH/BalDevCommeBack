@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { ChevronRight, BookOpen } from "lucide-react";
 import { useTranslation } from "../hooks/useTranslation";
 import Sidebar from "../components/Sidebar";
+import ShareSection from "../components/ShareSection";
 
 interface Section {
   title: string;
@@ -134,9 +135,15 @@ export default function Documentation() {
                       id={sectionId}
                       className="bg-white rounded-lg shadow-sm p-6"
                     >
-                      <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                        {translatedSection.title}
-                      </h2>
+                      <div className="flex justify-between items-start mb-4">
+                        <h2 className="text-2xl font-bold text-gray-900">
+                          {translatedSection.title}
+                        </h2>
+                        <ShareSection
+                          sectionId={sectionId}
+                          title={translatedSection.title}
+                        />
+                      </div>
                       <div
                         className="prose prose-indigo max-w-none"
                         dangerouslySetInnerHTML={sanitizeHTML(

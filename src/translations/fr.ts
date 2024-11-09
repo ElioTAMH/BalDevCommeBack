@@ -39,6 +39,9 @@ export default {
       output: "Résultat",
       console: "Console",
       visual: "Visuel",
+      shareLink: "Partager le lien",
+      linkCopied: "Lien copié dans le presse-papiers !",
+      shareSection: "Partager cette section",
     },
   },
   search: {

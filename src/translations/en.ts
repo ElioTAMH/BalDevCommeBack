@@ -39,6 +39,9 @@ export default {
       output: "Output",
       console: "Console",
       visual: "Visual",
+      shareLink: "Share link",
+      linkCopied: "Link copied to clipboard!",
+      shareSection: "Share this section",
     },
   },
   search: {
