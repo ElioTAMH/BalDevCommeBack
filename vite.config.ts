@@ -14,6 +14,15 @@ export default defineConfig({
             "/robots.txt": "public/robots.txt",
             "/sitemap.xml": "public/sitemap.xml",
             "/site.webmanifest": "public/site.webmanifest",
+            "/vite.svg": "public/vite.svg",
+            "/og-image.png": "public/og-image.png",
+            "/twitter-image.png": "public/twitter-image.png",
+            "/logo.png": "public/logo.png",
+            "/apple-touch-icon.png": "public/apple-touch-icon.png",
+            "/favicon-32x32.png": "public/favicon-32x32.png",
+            "/favicon-16x16.png": "public/favicon-16x16.png",
+            "/android-chrome-192x192.png": "public/android-chrome-192x192.png",
+            "/android-chrome-512x512.png": "public/android-chrome-512x512.png",
           };
           const requestedPath = req.url?.split("?")[0] ?? "";
           const filePath =
@@ -27,6 +36,9 @@ export default defineConfig({
                   ".txt": "text/plain",
                   ".xml": "application/xml",
                   ".webmanifest": "application/manifest+json",
+                  ".svg": "image/svg+xml",
+                  ".png": "image/png",
+                  ".ico": "image/x-icon",
                 }[path.extname(filePath)] ?? "application/octet-stream";
 
               res.setHeader("Content-Type", contentType);
@@ -45,6 +57,15 @@ export default defineConfig({
             "/robots.txt": "public/robots.txt",
             "/sitemap.xml": "public/sitemap.xml",
             "/site.webmanifest": "public/site.webmanifest",
+            "/vite.svg": "public/vite.svg",
+            "/og-image.png": "public/og-image.png",
+            "/twitter-image.png": "public/twitter-image.png",
+            "/logo.png": "public/logo.png",
+            "/apple-touch-icon.png": "public/apple-touch-icon.png",
+            "/favicon-32x32.png": "public/favicon-32x32.png",
+            "/favicon-16x16.png": "public/favicon-16x16.png",
+            "/android-chrome-192x192.png": "public/android-chrome-192x192.png",
+            "/android-chrome-512x512.png": "public/android-chrome-512x512.png",
           };
           const requestedPath = req.url?.split("?")[0] ?? "";
           const filePath =
@@ -58,6 +79,9 @@ export default defineConfig({
                   ".txt": "text/plain",
                   ".xml": "application/xml",
                   ".webmanifest": "application/manifest+json",
+                  ".svg": "image/svg+xml",
+                  ".png": "image/png",
+                  ".ico": "image/x-icon",
                 }[path.extname(filePath)] ?? "application/octet-stream";
 
               res.setHeader("Content-Type", contentType);
