@@ -1,8 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { useTranslation } from "../contexts/TranslationContext";
 import { useEffect } from "react";
 import { ChevronRight, BookOpen } from "lucide-react";
+import { useTranslation } from "../hooks/useTranslation";
 import Sidebar from "../components/Sidebar";
 
 interface Section {
@@ -14,19 +14,54 @@ interface Section {
     html: string;
     output?: string;
   };
+  translations?: {
+    [lang: string]: {
+      title: string;
+      content: string;
+    };
+  };
 }
 
 interface Documentation {
   title: string;
   sections: Section[];
+  translations?: {
+    [lang: string]: {
+      title: string;
+    };
+  };
 }
 
 export default function Documentation() {
   const { category } = useParams<{ category?: string }>();
-  const { getDocumentation, isLoading } = useTranslation();
+  const { getDocumentation, isLoading, currentLanguage } = useTranslation();
   const currentDocs = category
-    ? (getDocumentation(category) as unknown as Documentation)
-    : (getDocumentation("javascript") as unknown as Documentation);
+    ? (getDocumentation(
+        category as "javascript" | "react" | "css" | "nodejs" | "html"
+      ) as Documentation)
+    : (getDocumentation("javascript") as Documentation);
+
+  const getTranslatedContent = (section: Section) => {
+    if (currentLanguage === "en") {
+      return {
+        title: section.title,
+        content: section.content,
+      };
+    }
+
+    return {
+      title: section.translations?.[currentLanguage]?.title ?? section.title,
+      content:
+        section.translations?.[currentLanguage]?.content ?? section.content,
+    };
+  };
+
+  const getTranslatedTitle = (docs: Documentation) => {
+    if (currentLanguage === "en") {
+      return docs.title;
+    }
+    return docs.translations?.[currentLanguage]?.title ?? docs.title;
+  };
 
   const sanitizeHTML = (html: string) => {
     return {
@@ -81,13 +116,14 @@ export default function Documentation() {
           <div className="prose prose-indigo max-w-none">
             <h1 className="flex items-center space-x-3 text-4xl font-bold text-gray-900">
               <BookOpen className="h-8 w-8 text-indigo-600" />
-              <span>{currentDocs?.title || ""}</span>
+              <span>{getTranslatedTitle(currentDocs)}</span>
             </h1>
             <div className="mt-8 space-y-12">
               {currentDocs?.sections &&
                 Array.isArray(currentDocs.sections) &&
                 currentDocs.sections.map((section, index) => {
-                  const sectionId = section.title
+                  const translatedSection = getTranslatedContent(section);
+                  const sectionId = translatedSection.title
                     .toLowerCase()
                     .replace(/[^a-z0-9]+/g, "-")
                     .replace(/(^-|-$)/g, "");
@@ -99,11 +135,13 @@ export default function Documentation() {
                       className="bg-white rounded-lg shadow-sm p-6"
                     >
                       <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                        {section.title}
+                        {translatedSection.title}
                       </h2>
                       <div
                         className="prose prose-indigo max-w-none"
-                        dangerouslySetInnerHTML={sanitizeHTML(section.content)}
+                        dangerouslySetInnerHTML={sanitizeHTML(
+                          translatedSection.content
+                        )}
                       />
 
                       {section.code && (

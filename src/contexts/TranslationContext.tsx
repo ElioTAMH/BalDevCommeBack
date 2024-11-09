@@ -1,27 +1,31 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, ReactNode, useState, useEffect } from "react";
 import { setCookie, getCookie } from "../utils/cookies";
-import { getTranslatedDocumentation } from "../utils/documentationTranslator";
+import { getDocumentationTranslation } from "../services/translationService";
 import { documentationData } from "../data/documentation";
 
 type Language = "en" | "fr" | "es";
+
+type DocumentationCategory = keyof typeof documentationData;
 
 interface TranslationContextType {
   currentLanguage: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
-  getDocumentation: (category: string) => Record<string, unknown>;
+  getDocumentation: (
+    category: DocumentationCategory
+  ) => (typeof documentationData)[DocumentationCategory];
   isLoading: boolean;
 }
 
-const TranslationContext = createContext<TranslationContextType | undefined>(
-  undefined
+export const TranslationContext = createContext<TranslationContextType | null>(
+  null
 );
 
-export function TranslationProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+interface TranslationProviderProps {
+  children: ReactNode;
+}
+
+export function TranslationProvider({ children }: TranslationProviderProps) {
   const [currentLanguage, setCurrentLanguage] = useState<Language>(() => {
     const savedLang = getCookie("preferred-language");
     return (
@@ -36,8 +40,16 @@ export function TranslationProvider({
   >({});
 
   const [translatedDocs, setTranslatedDocs] = useState<
-    Record<string, Record<string, unknown>>
-  >({});
+    Record<
+      DocumentationCategory,
+      (typeof documentationData)[DocumentationCategory]
+    >
+  >(
+    {} as Record<
+      DocumentationCategory,
+      (typeof documentationData)[DocumentationCategory]
+    >
+  );
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,13 +62,18 @@ export function TranslationProvider({
         );
         setTranslations(translationModule.default);
 
-        const categories = ["javascript", "react", "css", "html", "nodejs"];
+        const categories = [
+          "javascript",
+          "react",
+          "css",
+          "html",
+          "nodejs",
+        ] as const;
         const translatedContent = await Promise.all(
           categories.map(async (category) => {
-            const translated = await getTranslatedDocumentation(
-              category,
-              currentLanguage
-            );
+            const translated =
+              (await getDocumentationTranslation(category, currentLanguage)) ||
+              documentationData[category];
             return [category, translated];
           })
         );
@@ -64,6 +81,7 @@ export function TranslationProvider({
         setTranslatedDocs(Object.fromEntries(translatedContent));
       } catch (error) {
         console.error("Failed to load translations:", error);
+        setTranslatedDocs(documentationData);
       } finally {
         setIsLoading(false);
       }
@@ -72,7 +90,7 @@ export function TranslationProvider({
     loadTranslations();
   }, [currentLanguage]);
 
-  const contextValue = {
+  const contextValue: TranslationContextType = {
     currentLanguage,
     setLanguage: (lang: Language) => {
       setCurrentLanguage(lang);
@@ -92,21 +110,13 @@ export function TranslationProvider({
 
       return typeof current === "string" ? current : key;
     },
-    getDocumentation: (category: keyof typeof documentationData) =>
+    getDocumentation: (category: DocumentationCategory) =>
       translatedDocs[category] || documentationData[category],
     isLoading,
   };
   return (
-    <TranslationContext.Provider value={contextValue as TranslationContextType}>
+    <TranslationContext.Provider value={contextValue}>
       {children}
     </TranslationContext.Provider>
   );
-}
-
-export function useTranslation() {
-  const context = useContext(TranslationContext);
-  if (undefined === context) {
-    throw new Error("useTranslation must be used within a TranslationProvider");
-  }
-  return context;
 }

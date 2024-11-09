@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Code2, Layout, Terminal, Database } from "lucide-react";
-import { useTranslation } from "../contexts/TranslationContext";
+import { useTranslation } from "../hooks/useTranslation";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
