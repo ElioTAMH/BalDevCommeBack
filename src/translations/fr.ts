@@ -93,6 +93,28 @@ export default {
       description: "Aidez la communauté en contribuant à la documentation",
       button: "Ajouter du Contenu",
     },
+    section: {
+      title: "Contribuez à la Documentation",
+      description: "Rejoignez notre communauté et partagez votre expertise",
+      cards: {
+        documentation: {
+          title: "Documentation",
+          description:
+            "Partagez vos connaissances en ajoutant de nouveaux contenus ou en améliorant la documentation existante.",
+        },
+        code: {
+          title: "Exemples de Code",
+          description:
+            "Ajoutez des exemples pratiques et des cas d'utilisation pour aider les autres développeurs.",
+        },
+        community: {
+          title: "Communauté",
+          description:
+            "Rejoignez une communauté active de développeurs et partagez vos expériences.",
+        },
+      },
+      button: "Commencer à Contribuer",
+    },
     nav: {
       title: "Structure",
       preview: "Configuration de l'Aperçu",
@@ -117,6 +139,53 @@ export default {
       title: "Envie de contribuer ?",
       description: "Ajoutez votre expertise à la documentation",
       button: "Ajouter du Contenu",
+    },
+    page: {
+      title: "Contribuer à la Documentation",
+      subtitle:
+        "Aidez-nous à améliorer en ajoutant de nouvelles sections de documentation. Vos contributions font la différence.",
+      structure: {
+        title: "Structure",
+        category: {
+          label: "Catégorie",
+          options: {
+            javascript: "JavaScript",
+            html: "HTML",
+            css: "CSS",
+            react: "React",
+            nodejs: "Node.js",
+          },
+        },
+        title_field: "Titre",
+        content: "Contenu (HTML)",
+        code: "Exemple de Code",
+      },
+      preview: {
+        title: "Configuration de l'Aperçu",
+        type: {
+          label: "Type d'Aperçu",
+          visual: "Visuel",
+          console: "Console",
+        },
+        content: "Contenu de l'Aperçu",
+      },
+      github: {
+        title: "Intégration GitHub",
+        token: {
+          label: "Token d'Accès Personnel GitHub",
+          placeholder: "ghp_votre_token_ici",
+          help: "Créez un token avec la portée 'repo' dans Paramètres GitHub → Paramètres développeur → Tokens d'accès personnel",
+        },
+      },
+      submit: {
+        button: "Soumettre la Documentation",
+        submitting: "Soumission en cours...",
+        error: {
+          token: "Le token GitHub est requis",
+          unknown: "Une erreur inconnue est survenue",
+        },
+        success: "Documentation soumise avec succès !",
+      },
     },
   },
 };

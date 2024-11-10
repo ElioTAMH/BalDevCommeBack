@@ -93,6 +93,28 @@ export default {
       description: "Help the community by contributing to the documentation",
       button: "Add Content",
     },
+    section: {
+      title: "Contribute to Documentation",
+      description: "Join our community and share your expertise",
+      cards: {
+        documentation: {
+          title: "Documentation",
+          description:
+            "Share your knowledge by adding new content or improving existing documentation.",
+        },
+        code: {
+          title: "Code Examples",
+          description:
+            "Add practical examples and use cases to help other developers.",
+        },
+        community: {
+          title: "Community",
+          description:
+            "Join an active community of developers and share your experiences.",
+        },
+      },
+      button: "Start Contributing",
+    },
     nav: {
       title: "Structure",
       preview: "Preview Configuration",
@@ -112,6 +134,53 @@ export default {
       title: "Want to contribute?",
       description: "Add your expertise to the documentation",
       button: "Add Content",
+    },
+    page: {
+      title: "Contribute to Documentation",
+      subtitle:
+        "Help us improve by adding new documentation sections. Your contributions make a difference.",
+      structure: {
+        title: "Structure",
+        category: {
+          label: "Category",
+          options: {
+            javascript: "JavaScript",
+            html: "HTML",
+            css: "CSS",
+            react: "React",
+            nodejs: "Node.js",
+          },
+        },
+        title_field: "Title",
+        content: "Content (HTML)",
+        code: "Code Example",
+      },
+      preview: {
+        title: "Preview Configuration",
+        type: {
+          label: "Preview Type",
+          visual: "Visual",
+          console: "Console",
+        },
+        content: "Preview Content",
+      },
+      github: {
+        title: "GitHub Integration",
+        token: {
+          label: "GitHub Personal Access Token",
+          placeholder: "ghp_your_token_here",
+          help: "Create a token with 'repo' scope at GitHub Settings → Developer settings → Personal access tokens",
+        },
+      },
+      submit: {
+        button: "Submit Documentation",
+        submitting: "Submitting...",
+        error: {
+          token: "GitHub token is required",
+          unknown: "An unknown error occurred",
+        },
+        success: "Documentation submitted successfully!",
+      },
     },
   },
 };

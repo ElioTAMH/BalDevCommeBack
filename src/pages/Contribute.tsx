@@ -233,11 +233,10 @@ export default function Contribute() {
       <div className="max-w-5xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-4">
-            Contribute to Documentation
+            {t("contribute.page.title")}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Help us improve by adding new documentation sections. Your
-            contributions make a difference.
+            {t("contribute.page.subtitle")}
           </p>
         </div>
 
@@ -253,7 +252,7 @@ export default function Contribute() {
                   <Book className="h-6 w-6 text-indigo-600" />
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900">
-                  {t("contribute.nav.title")}
+                  {t("contribute.page.structure.title")}
                 </h2>
               </div>
               {openSections.structure ? (
@@ -268,7 +267,7 @@ export default function Contribute() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Category
+                      {t("contribute.page.structure.category.label")}
                     </label>
                     <select
                       value={formData.category}
@@ -277,16 +276,18 @@ export default function Contribute() {
                       }
                       className="w-full rounded-lg border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500"
                     >
-                      <option value="javascript">JavaScript</option>
-                      <option value="html">HTML</option>
-                      <option value="css">CSS</option>
-                      <option value="react">React</option>
-                      <option value="nodejs">Node.js</option>
+                      {Object.entries(
+                        t("contribute.page.structure.category.options")
+                      ).map(([value, label]) => (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Title
+                      {t("contribute.page.structure.title_field")}
                     </label>
                     <input
                       type="text"
@@ -301,7 +302,7 @@ export default function Contribute() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Content (HTML)
+                    {t("contribute.page.structure.content")}
                   </label>
                   <textarea
                     value={formData.content}
@@ -315,7 +316,7 @@ export default function Contribute() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Code Example
+                    {t("contribute.page.structure.code")}
                   </label>
                   <textarea
                     value={formData.code}
@@ -341,7 +342,7 @@ export default function Contribute() {
                   <Book className="h-6 w-6 text-indigo-600" />
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900">
-                  Preview Configuration
+                  {t("contribute.page.preview.title")}
                 </h2>
               </div>
               {openSections.preview ? (
@@ -355,7 +356,7 @@ export default function Contribute() {
               <div className="p-6 border-t border-gray-200 space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Preview Type
+                    {t("contribute.page.preview.type.label")}
                   </label>
                   <select
                     value={formData.previewType}
@@ -367,13 +368,17 @@ export default function Contribute() {
                     }
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   >
-                    <option value="visual">Visual</option>
-                    <option value="console">Console</option>
+                    <option value="visual">
+                      {t("contribute.page.preview.type.visual")}
+                    </option>
+                    <option value="console">
+                      {t("contribute.page.preview.type.console")}
+                    </option>
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Preview Content
+                    {t("contribute.page.preview.content")}
                   </label>
                   <textarea
                     value={formData.previewContent}
@@ -402,7 +407,7 @@ export default function Contribute() {
                   <Book className="h-6 w-6 text-indigo-600" />
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900">
-                  GitHub Integration
+                  {t("contribute.page.github.title")}
                 </h2>
               </div>
               {openSections.github ? (
@@ -416,19 +421,18 @@ export default function Contribute() {
               <div className="p-6 border-t border-gray-200 space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    GitHub Personal Access Token
+                    {t("contribute.page.github.token.label")}
                   </label>
                   <input
                     type="password"
                     value={githubToken}
                     onChange={(e) => setGithubToken(e.target.value)}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    placeholder="ghp_your_token_here"
+                    placeholder={t("contribute.page.github.token.placeholder")}
                     required
                   />
                   <p className="mt-1 text-sm text-gray-500">
-                    Create a token with 'repo' scope at GitHub Settings →
-                    Developer settings → Personal access tokens
+                    {t("contribute.page.github.token.help")}
                   </p>
                 </div>
               </div>
@@ -465,7 +469,9 @@ export default function Contribute() {
               `}
             >
               <Github className="h-5 w-5 mr-2" />
-              {isSubmitting ? "Submitting..." : "Submit Documentation"}
+              {isSubmitting
+                ? t("contribute.page.submit.submitting")
+                : t("contribute.page.submit.button")}
             </button>
           </div>
         </form>
