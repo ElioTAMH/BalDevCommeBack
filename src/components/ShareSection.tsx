@@ -1,5 +1,6 @@
 import { Facebook, Twitter, Linkedin, Link as LinkIcon } from "lucide-react";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface ShareSectionProps {
   sectionId: string;
@@ -8,8 +9,10 @@ interface ShareSectionProps {
 
 export default function ShareSection({ sectionId, title }: ShareSectionProps) {
   const [showToast, setShowToast] = useState(false);
+  const location = useLocation();
 
   const currentUrl = new URL(window.location.href);
+  currentUrl.pathname = location.pathname;
   currentUrl.hash = sectionId;
   const shareUrl = currentUrl.toString();
 
