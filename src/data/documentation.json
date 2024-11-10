@@ -33,7 +33,7 @@
     "sections": [
       {
         "title": "Border CSS",
-        "content": "<p>La propriété border en CSS permet de définir les bordures d'un élément. Voici plusieurs façons de l'utiliser.</p>",
+        "content": "<p>The border property in CSS allows you to define element borders. Here are several ways to use it.</p>",
         "code": ".border-basic {\n  border: 2px solid black;\n}\n\n.border-radius {\n  border: 1px solid #333;\n  border-radius: 8px;\n}\n\n.border-style {\n  border-width: 3px;\n  border-style: dashed;\n  border-color: #ff0000;\n}\n\n.border-sides {\n  border-top: 2px dotted blue;\n  border-right: 4px double green;\n  border-bottom: 3px groove orange;\n  border-left: 1px solid purple;\n}",
         "copyCode": true,
         "preview": {
@@ -43,7 +43,7 @@
       },
       {
         "title": "Flexbox Layout",
-        "content": "<p>Flexbox est un modèle de mise en page puissant pour organiser les éléments.</p><ul><li>Alignement flexible des éléments</li><li>Distribution de l'espace</li><li>Ordre des éléments modifiable</li></ul>",
+        "content": "<p>Flexbox is a powerful layout model for organizing elements.</p><ul><li>Flexible element alignment</li><li>Space distribution</li><li>Modifiable element order</li></ul>",
         "code": ".flex-container {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 1rem;\n}\n\n.flex-item {\n  flex: 1;\n  padding: 1rem;\n}",
         "preview": {
           "type": "visual",
@@ -52,7 +52,7 @@
       },
       {
         "title": "Grid Layout",
-        "content": "<p>CSS Grid permet de créer des mises en page complexes en 2 dimensions.</p><ul><li>Placement précis des éléments</li><li>Grilles responsives</li><li>Zones nommées</li></ul>",
+        "content": "<p>CSS Grid enables complex 2-dimensional layouts.</p><ul><li>Precise element placement</li><li>Responsive grids</li><li>Named areas</li></ul>",
         "code": ".grid-container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-gap: 1rem;\n}\n\n.grid-item {\n  grid-column: span 2;\n  padding: 1rem;\n}",
         "preview": {
           "type": "visual",
@@ -70,7 +70,7 @@
       },
       {
         "title": "Media Queries",
-        "content": "<p>Les media queries permettent de créer des designs responsifs adaptés à différents écrans.</p><ul><li>Breakpoints personnalisés</li><li>Adaptation du layout</li><li>Styles conditionnels</li></ul>",
+        "content": "<p>Media queries enable responsive designs adapted to different screens.</p><ul><li>Custom breakpoints</li><li>Layout adaptation</li><li>Conditional styles</li></ul>",
         "code": "@media (max-width: 768px) {\n  .container {\n    flex-direction: column;\n  }\n}\n\n@media (min-width: 1024px) {\n  .container {\n    max-width: 1200px;\n    margin: 0 auto;\n  }\n}",
         "preview": {
           "type": "visual",
@@ -79,7 +79,7 @@
       },
       {
         "title": "Custom Properties",
-        "content": "<p>Les propriétés personnalisées (variables CSS) permettent de gérer les styles de manière dynamique.</p><ul><li>Réutilisation des valeurs</li><li>Thèmes dynamiques</li><li>Maintenance simplifiée</li></ul>",
+        "content": "<p>Custom properties (CSS variables) allow dynamic style management.</p><ul><li>Value reuse</li><li>Dynamic themes</li><li>Simplified maintenance</li></ul>",
         "code": ":root {\n  --primary-color: #4f46e5;\n  --spacing-unit: 1rem;\n}\n\n.themed-element {\n  color: var(--primary-color);\n  padding: var(--spacing-unit);\n  border: 2px solid var(--primary-color);\n}",
         "preview": {
           "type": "visual",

@@ -13,6 +13,10 @@ export default function Home() {
   });
   const { t } = useTranslation();
 
+  const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+  const REPO_OWNER = "AigloOo";
+  const REPO_NAME = "BalDevCommeBack";
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -24,16 +28,24 @@ export default function Home() {
     const fetchStats = async () => {
       try {
         const response = await fetch(
-          "https://api.github.com/AigloOo/BalDevCommeBack",
+          `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`,
           {
             headers: {
               Accept: "application/vnd.github.v3+json",
+              ...(GITHUB_TOKEN && { Authorization: `token ${GITHUB_TOKEN}` }),
             },
           }
         );
+
+        if (response.status === 404) {
+          console.error("Repository not found");
+          throw new Error("Repository not found");
+        }
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+
         const data = await response.json();
         setStats({
           totalDocs: data.size || 0,

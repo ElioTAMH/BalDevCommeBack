@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Linkedin, Link as LinkIcon } from "lucide-react";
+import { useState } from "react";
 
 interface ShareSectionProps {
   sectionId: string;
@@ -6,16 +7,23 @@ interface ShareSectionProps {
 }
 
 export default function ShareSection({ sectionId, title }: ShareSectionProps) {
-  const currentUrl = `${window.location.origin}${window.location.pathname}#${sectionId}`;
-  const encodedUrl = encodeURIComponent(currentUrl);
-  const encodedTitle = encodeURIComponent(
-    `Check out this section about ${title} on BalDev`
+  const [showToast, setShowToast] = useState(false);
+
+  const currentUrl = new URL(window.location.href);
+  currentUrl.hash = sectionId;
+  const shareUrl = currentUrl.toString();
+
+  const encodedUrl = encodeURIComponent(shareUrl);
+  const encodedTitle = encodeURIComponent(`${title} | BalDev Documentation`);
+  const encodedDescription = encodeURIComponent(
+    `Check out this section about ${title} in the BalDev documentation.`
   );
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(currentUrl);
-      alert("Link copied to clipboard!");
+      await navigator.clipboard.writeText(shareUrl);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
     } catch (err) {
       console.error("Failed to copy link:", err);
     }
@@ -23,49 +31,58 @@ export default function ShareSection({ sectionId, title }: ShareSectionProps) {
 
   const socialLinks = {
     twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedDescription}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
   };
 
   return (
-    <div className="flex items-center gap-2">
-      <button
-        onClick={copyToClipboard}
-        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-indigo-600 hover:border-indigo-600 transition-all duration-200"
-      >
-        <LinkIcon className="h-4 w-4" />
-        <span>Share link</span>
-      </button>
+    <>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={copyToClipboard}
+          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-indigo-600 hover:border-indigo-600 transition-all duration-200"
+        >
+          <LinkIcon className="h-4 w-4" />
+          <span>Share link</span>
+        </button>
 
-      <div className="flex items-center gap-1">
-        <a
-          href={socialLinks.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 text-gray-600 hover:text-blue-400 hover:bg-blue-50 rounded-full transition-all duration-200"
-          title="Share on Twitter"
-        >
-          <Twitter className="h-4 w-4" />
-        </a>
-        <a
-          href={socialLinks.facebook}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200"
-          title="Share on Facebook"
-        >
-          <Facebook className="h-4 w-4" />
-        </a>
-        <a
-          href={socialLinks.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 text-gray-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-all duration-200"
-          title="Share on LinkedIn"
-        >
-          <Linkedin className="h-4 w-4" />
-        </a>
+        <div className="flex items-center gap-1">
+          <a
+            href={socialLinks.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-gray-600 hover:text-blue-400 hover:bg-blue-50 rounded-full transition-all duration-200"
+            title="Share on Twitter"
+          >
+            <Twitter className="h-4 w-4" />
+          </a>
+          <a
+            href={socialLinks.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200"
+            title="Share on Facebook"
+          >
+            <Facebook className="h-4 w-4" />
+          </a>
+          <a
+            href={socialLinks.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-gray-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-all duration-200"
+            title="Share on LinkedIn"
+          >
+            <Linkedin className="h-4 w-4" />
+          </a>
+        </div>
       </div>
-    </div>
+
+      {showToast && (
+        <div className="fixed bottom-4 left-4 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 animate-fade-in-up">
+          <LinkIcon className="h-4 w-4" />
+          <span>Link copied to clipboard!</span>
+        </div>
+      )}
+    </>
   );
 }

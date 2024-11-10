@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { useEffect } from "react";
-import { ChevronRight, BookOpen } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronRight, BookOpen, X, Menu } from "lucide-react";
 import { useTranslation } from "../hooks/useTranslation";
 import Sidebar from "../components/Sidebar";
 import ShareSection from "../components/ShareSection";
@@ -93,6 +93,8 @@ export default function Documentation() {
     }
   };
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -102,9 +104,27 @@ export default function Documentation() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 p-8">
+    <div className="flex flex-col md:flex-row min-h-screen">
+      <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="md:hidden fixed bottom-4 right-4 z-50 bg-indigo-600 text-white p-3 rounded-full shadow-lg"
+      >
+        {isSidebarOpen ? (
+          <X className="h-6 w-6" />
+        ) : (
+          <Menu className="h-6 w-6" />
+        )}
+      </button>
+
+      <div
+        className={`${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 fixed md:sticky top-0 h-screen w-64 transition-transform duration-300 ease-in-out z-40 md:z-0 overflow-y-auto`}
+      >
+        <Sidebar />
+      </div>
+
+      <main className="flex-1 p-4 md:p-8 overflow-y-auto">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
             <Link to="/" className="hover:text-gray-900">
