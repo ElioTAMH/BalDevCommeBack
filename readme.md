@@ -154,6 +154,15 @@ npm run build
 
 ---
 
-## License
+## Licence
 
-[MIT License](LICENSE)
+Ce projet est sous licence GNU GPL v3 avec les restrictions supplémentaires suivantes :
+
+- ⛔ Utilisation commerciale interdite
+- ✅ Modification autorisée
+- ✅ Distribution autorisée
+- ✅ Utilisation privée autorisée
+- 📝 Attribution obligatoire
+- 🔄 Les travaux dérivés doivent utiliser la même licence
+
+Pour plus de détails, voir le fichier [LICENSE](LICENSE).
