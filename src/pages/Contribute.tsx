@@ -228,6 +228,14 @@ export default function Contribute() {
     }
   };
 
+  const categoryOptions = {
+    javascript: t("contribute.page.structure.category.options.javascript"),
+    html: t("contribute.page.structure.category.options.html"),
+    css: t("contribute.page.structure.category.options.css"),
+    react: t("contribute.page.structure.category.options.react"),
+    nodejs: t("contribute.page.structure.category.options.nodejs"),
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 py-12">
@@ -274,11 +282,9 @@ export default function Contribute() {
                       onChange={(e) =>
                         setFormData({ ...formData, category: e.target.value })
                       }
-                      className="w-full rounded-lg border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     >
-                      {Object.entries(
-                        t("contribute.page.structure.category.options")
-                      ).map(([value, label]) => (
+                      {Object.entries(categoryOptions).map(([value, label]) => (
                         <option key={value} value={value}>
                           {label}
                         </option>
