@@ -87,4 +87,31 @@ export default {
       description: "Created by developers, for developers",
     },
   },
+  contribute: {
+    banner: {
+      title: "Share Your Knowledge",
+      description: "Help the community by contributing to the documentation",
+      button: "Add Content",
+    },
+    nav: {
+      title: "Structure",
+      preview: "Preview Configuration",
+      github: "GitHub Integration",
+      category: "Category",
+      contentTitle: "Title",
+      content: "Content (HTML)",
+      codeExample: "Code Example",
+      previewType: "Preview Type",
+      previewContent: "Preview Content",
+      token: "GitHub Personal Access Token",
+      tokenHelp:
+        "Create a token with 'repo' scope at GitHub Settings → Developer settings → Personal access tokens",
+      submit: "Submit Documentation",
+    },
+    sidebar: {
+      title: "Want to contribute?",
+      description: "Add your expertise to the documentation",
+      button: "Add Content",
+    },
+  },
 };

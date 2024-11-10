@@ -8,6 +8,7 @@ import { TranslationProvider } from "./contexts/TranslationContext";
 import PreAlphaNotification from "./components/PreAlphaNotification";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
+import Contribute from "./pages/Contribute";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/docs/:category" element={<Documentation />} />
             <Route path="/guide/:slug" element={<Guide />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/contribute" element={<Contribute />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

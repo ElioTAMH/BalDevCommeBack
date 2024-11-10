@@ -87,4 +87,36 @@ export default {
       description: "Créé par des développeurs, pour des développeurs",
     },
   },
+  contribute: {
+    banner: {
+      title: "Partagez vos Connaissances",
+      description: "Aidez la communauté en contribuant à la documentation",
+      button: "Ajouter du Contenu",
+    },
+    nav: {
+      title: "Structure",
+      preview: "Configuration de l'Aperçu",
+      github: "Intégration GitHub",
+      category: "Catégorie",
+      contentTitle: "Titre",
+      content: "Contenu (HTML)",
+      codeExample: "Exemple de Code",
+      previewType: "Type d'Aperçu",
+      previewContent: "Contenu de l'Aperçu",
+      token: "Token d'Accès Personnel GitHub",
+      tokenHelp:
+        "Créez un token avec la portée 'repo' dans Paramètres GitHub → Paramètres développeur → Tokens d'accès personnel",
+      submit: "Soumettre la Documentation",
+    },
+    emptySection: {
+      title: "Cette section a besoin de contenu",
+      description: "Soyez le premier à contribuer !",
+      button: "Contribuer",
+    },
+    sidebar: {
+      title: "Envie de contribuer ?",
+      description: "Ajoutez votre expertise à la documentation",
+      button: "Ajouter du Contenu",
+    },
+  },
 };

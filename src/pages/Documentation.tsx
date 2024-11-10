@@ -5,6 +5,7 @@ import { ChevronRight, BookOpen, X, Menu } from "lucide-react";
 import { useTranslation } from "../hooks/useTranslation";
 import Sidebar from "../components/Sidebar";
 import ShareSection from "../components/ShareSection";
+import ContributeBanner from "../components/ContributeBanner";
 
 interface Section {
   title: string;
@@ -164,6 +165,7 @@ export default function Documentation() {
 
       <main className="flex-1 p-4 md:p-8 overflow-y-auto">
         <div className="max-w-4xl mx-auto">
+          <ContributeBanner />
           <div className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
             <Link to="/" className="hover:text-gray-900">
               Home
