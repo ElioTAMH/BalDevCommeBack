@@ -11,6 +11,15 @@
           "type": "console",
           "output": "Hello World\n1\n2\n3\nHello John"
         }
+      },
+      {
+        "title": "test",
+        "content": "test",
+        "code": "test",
+        "preview": {
+          "type": "visual",
+          "html": "test"
+        }
       }
     ]
   },
