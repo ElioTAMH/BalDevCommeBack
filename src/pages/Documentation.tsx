@@ -71,17 +71,28 @@ export default function Documentation() {
   };
 
   const scrollToHash = () => {
-    const hash = window.location.hash;
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        const element = document.querySelector(`#${hash}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
       }
-    }
+    }, 100);
   };
 
   useEffect(() => {
+    const handleHashChange = () => {
+      scrollToHash();
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
     scrollToHash();
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
   }, [category]);
 
   const handleCopyCode = async (code: string | undefined) => {
@@ -144,10 +155,11 @@ export default function Documentation() {
                 Array.isArray(currentDocs.sections) &&
                 currentDocs.sections.map((section, index) => {
                   const translatedSection = getTranslatedContent(section);
-                  const sectionId = translatedSection.title
+                  const sectionId = section.title
                     .toLowerCase()
                     .replace(/[^a-z0-9]+/g, "-")
-                    .replace(/(^-|-$)/g, "");
+                    .replace(/(^-|-$)/g, "")
+                    .trim();
 
                   return (
                     <section
