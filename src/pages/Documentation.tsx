@@ -43,12 +43,20 @@ export default function Documentation() {
     setTimeout(() => {
       const hash = window.location.hash.replace("#", "");
       if (hash) {
-        const element = document.querySelector(`#${hash}`);
+        const element = document.getElementById(hash);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
+          const headerOffset = 100;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
         }
       }
-    }, 100);
+    }, 300);
   };
 
   useEffect(() => {
@@ -68,13 +76,15 @@ export default function Documentation() {
       scrollToHash();
     };
 
-    window.addEventListener("hashchange", handleHashChange);
-    scrollToHash();
+    if (location.hash) {
+      scrollToHash();
+    }
 
+    window.addEventListener("hashchange", handleHashChange);
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
     };
-  }, [category]);
+  }, [location.hash, category]);
 
   const currentDocs = category
     ? getDocumentation(
@@ -182,7 +192,7 @@ export default function Documentation() {
                     <section
                       key={index}
                       id={sectionId}
-                      className="bg-white rounded-lg shadow-sm p-6"
+                      className="bg-white rounded-lg shadow-sm p-6 scroll-mt-24"
                     >
                       <div className="flex justify-between items-start mb-4">
                         <h2 className="text-2xl font-bold text-gray-900">
