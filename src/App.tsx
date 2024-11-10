@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Documentation from "./pages/Documentation";
@@ -17,9 +17,11 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/docs/:category?" element={<Documentation />} />
-            <Route path="/guide/:slug?" element={<Guide />} />
+            <Route path="/docs" element={<Documentation />} />
+            <Route path="/docs/:category" element={<Documentation />} />
+            <Route path="/guide/:slug" element={<Guide />} />
             <Route path="/search" element={<Search />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
         <PreAlphaNotification />

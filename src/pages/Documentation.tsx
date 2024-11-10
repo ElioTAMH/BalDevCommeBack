@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation, Navigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";
 import { ChevronRight, BookOpen, X, Menu } from "lucide-react";
@@ -12,7 +12,7 @@ interface Section {
   code?: string;
   preview?: {
     type: string;
-    html: string;
+    html?: string;
     output?: string;
   };
   translations?: {
@@ -35,12 +35,56 @@ interface Documentation {
 
 export default function Documentation() {
   const { category } = useParams<{ category?: string }>();
+  const location = useLocation();
   const { getDocumentation, isLoading, currentLanguage } = useTranslation();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const scrollToHash = () => {
+    setTimeout(() => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        const element = document.querySelector(`#${hash}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }, 100);
+  };
+
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, [location.hash, category]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      scrollToHash();
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    scrollToHash();
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [category]);
+
   const currentDocs = category
-    ? (getDocumentation(
+    ? getDocumentation(
         category as "javascript" | "react" | "css" | "nodejs" | "html"
-      ) as Documentation)
-    : (getDocumentation("javascript") as Documentation);
+      )
+    : getDocumentation("javascript");
+
+  if (!currentDocs) {
+    return <Navigate to="/docs/javascript" replace />;
+  }
 
   const getTranslatedContent = (section: Section) => {
     if (currentLanguage === "en") {
@@ -70,31 +114,6 @@ export default function Documentation() {
     };
   };
 
-  const scrollToHash = () => {
-    setTimeout(() => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash) {
-        const element = document.querySelector(`#${hash}`);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    }, 100);
-  };
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      scrollToHash();
-    };
-
-    window.addEventListener("hashchange", handleHashChange);
-    scrollToHash();
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, [category]);
-
   const handleCopyCode = async (code: string | undefined) => {
     if (!code) return;
     try {
@@ -103,8 +122,6 @@ export default function Documentation() {
       console.error("Failed to copy code:", err);
     }
   };
-
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   if (isLoading) {
     return (
@@ -211,14 +228,16 @@ export default function Documentation() {
                               <h4 className="text-sm font-medium text-gray-500 mb-2">
                                 Preview
                               </h4>
-                              {section.preview.type === "visual" ? (
+                              {section.preview.type === "visual" &&
+                              section.preview.html ? (
                                 <div
                                   className="border rounded-lg p-4 bg-white"
                                   dangerouslySetInnerHTML={sanitizeHTML(
-                                    section.preview.html ?? ""
+                                    section.preview.html
                                   )}
                                 />
-                              ) : (
+                              ) : section.preview.type === "output" &&
+                                section.preview.output ? (
                                 <div className="bg-gray-900 rounded-lg p-4 shadow-lg border border-gray-700">
                                   <div className="flex items-center mb-2 bg-gray-800 rounded-t-lg p-2 -mt-4 -mx-4 border-b border-gray-700">
                                     <div className="flex space-x-2">
@@ -234,7 +253,7 @@ export default function Documentation() {
                                     {section.preview.output}
                                   </pre>
                                 </div>
-                              )}
+                              ) : null}
                             </div>
                           )}
                         </div>
