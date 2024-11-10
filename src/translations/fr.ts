@@ -73,4 +73,18 @@ export default {
     backToTop: "Retour en haut",
     lastUpdated: "Dernière mise à jour le",
   },
+  features: {
+    comprehensive: {
+      title: "Documentation Complète",
+      description: "Guides détaillés et références pour le développement web",
+    },
+    interactive: {
+      title: "Exemples Interactifs",
+      description: "Apprenez en pratiquant avec des exemples de code en direct",
+    },
+    community: {
+      title: "Géré par la Communauté",
+      description: "Créé par des développeurs, pour des développeurs",
+    },
+  },
 };
