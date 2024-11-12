@@ -171,7 +171,15 @@ export default function Documentation() {
               Home
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-gray-900">Documentation</span>
+            <Link to="/docs" className="hover:text-gray-900">
+              Documentation
+            </Link>
+            {category && (
+              <>
+                <ChevronRight className="h-4 w-4" />
+                <span className="text-gray-900 capitalize">{category}</span>
+              </>
+            )}
           </div>
 
           <div className="prose prose-indigo max-w-none">
