@@ -256,8 +256,10 @@ export default function Documentation() {
                                     section.preview.html
                                   )}
                                 />
-                              ) : section.preview.type === "output" &&
-                                section.preview.output ? (
+                              ) : (section.preview.type === "output" ||
+                                  section.preview.type === "console") &&
+                                (section.preview.output ||
+                                  section.preview.html) ? (
                                 <div className="bg-gray-900 rounded-lg p-4 shadow-lg border border-gray-700">
                                   <div className="flex items-center mb-2 bg-gray-800 rounded-t-lg p-2 -mt-4 -mx-4 border-b border-gray-700">
                                     <div className="flex space-x-2">
@@ -266,11 +268,14 @@ export default function Documentation() {
                                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                                     </div>
                                     <span className="ml-4 text-sm text-gray-400">
-                                      Output
+                                      {section.preview.type === "console"
+                                        ? "Console"
+                                        : "Output"}
                                     </span>
                                   </div>
                                   <pre className="text-sm text-green-400 font-mono">
-                                    {section.preview.output}
+                                    {section.preview.output ||
+                                      section.preview.html}
                                   </pre>
                                 </div>
                               ) : null}
