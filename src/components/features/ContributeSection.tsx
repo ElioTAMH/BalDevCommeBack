@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 import { Github, BookOpen, Code, Users } from "lucide-react";
 
 export default function ContributeSection() {

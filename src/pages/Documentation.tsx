@@ -3,9 +3,9 @@ import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";
 import { ChevronRight, BookOpen, X, Menu } from "lucide-react";
 import { useTranslation } from "../hooks/useTranslation";
-import Sidebar from "../components/Sidebar";
-import ShareSection from "../components/ShareSection";
-import ContributeBanner from "../components/ContributeBanner";
+import Sidebar from "../components/layout/Sidebar";
+import ShareSection from "../components/documentation/ShareSection";
+import ContributeBanner from "../components/features/ContributeBanner";
 
 interface Section {
   title: string;

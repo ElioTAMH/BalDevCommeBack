@@ -1,6 +1,6 @@
 import { FilePlus, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export default function EmptySection({ category }: { category: string }) {
   const { t } = useTranslation();

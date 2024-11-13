@@ -19,6 +19,26 @@ const decodeBase64 = (str: string): string => {
   return decodeURIComponent(escape(atob(str)));
 };
 
+const validateGithubToken = async (token: string): Promise<boolean> => {
+  try {
+    const response = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3+json",
+      },
+    });
+
+    if (!response.ok) {
+      return false;
+    }
+
+    const scopes = response.headers.get("x-oauth-scopes")?.split(", ") || [];
+    return scopes.includes("repo");
+  } catch {
+    return false;
+  }
+};
+
 export default function Contribute() {
   const [formData, setFormData] = useState<FormData>({
     category: "javascript",
@@ -54,21 +74,28 @@ export default function Contribute() {
     setIsSubmitting(true);
 
     if (!githubToken) {
-      setError("GitHub token is required");
+      setError(t("contribute.page.submit.error.token"));
       setIsSubmitting(false);
       return;
     }
 
-    const sanitizedTitle = formData.title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
-
-    const branchName = `doc-${sanitizedTitle}-${Date.now()}`;
-    const owner = "AigloOo";
-    const repo = "BalDevCommeBack";
-
     try {
+      const isValidToken = await validateGithubToken(githubToken);
+      if (!isValidToken) {
+        setError("Invalid GitHub token or missing 'repo' scope permissions");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const sanitizedTitle = formData.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+
+      const branchName = `doc-${sanitizedTitle}-${Date.now()}`;
+      const owner = "AigloOo";
+      const repo = "BalDevCommeBack";
+
       const mainBranchResponse = await fetch(
         `https://api.github.com/repos/${owner}/${repo}/git/ref/heads/main`,
         {
@@ -81,6 +108,13 @@ export default function Contribute() {
 
       if (!mainBranchResponse.ok) {
         const errorData = await mainBranchResponse.json();
+        if (mainBranchResponse.status === 403) {
+          throw new Error(
+            "Insufficient permissions. Please check your GitHub token has the 'repo' scope."
+          );
+        } else if (mainBranchResponse.status === 404) {
+          throw new Error("Repository not found or token is invalid.");
+        }
         throw new Error(`Failed to get main branch: ${errorData.message}`);
       }
 
@@ -439,6 +473,20 @@ export default function Contribute() {
                   />
                   <p className="mt-1 text-sm text-gray-500">
                     {t("contribute.page.github.token.help")}
+                    <br />
+                    <strong className="text-indigo-600">
+                      Important: Make sure to select the 'repo' scope when
+                      creating your token.
+                    </strong>
+                    <br />
+                    <a
+                      href="https://github.com/settings/tokens/new?scopes=repo&description=BalDev%20Documentation%20Contribution"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-indigo-600 hover:text-indigo-500"
+                    >
+                      Create a new token with correct permissions →
+                    </a>
                   </p>
                 </div>
               </div>

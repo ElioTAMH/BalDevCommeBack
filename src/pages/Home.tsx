@@ -10,8 +10,8 @@ import {
   Users,
 } from "lucide-react";
 import { useTranslation } from "../hooks/useTranslation";
-import GitHubStats from "../components/GitHubStats";
-import ContributeSection from "../components/ContributeSection";
+import GitHubStats from "../components/stats/GitHubStats";
+import ContributeSection from "../components/features/ContributeSection";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");

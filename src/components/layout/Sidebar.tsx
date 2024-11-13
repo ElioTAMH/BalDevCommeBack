@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Book, Code2, Layout, Terminal, Database, Plus } from "lucide-react";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export default function Sidebar() {
   const location = useLocation();
