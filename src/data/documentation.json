@@ -11,6 +11,15 @@
           "type": "console",
           "output": "Hello World\n1\n2\n3\nHello John"
         }
+      },
+      {
+        "title": "inProgressTaskList",
+        "content": "inProgressTaskList",
+        "code": "inProgressTaskList",
+        "preview": {
+          "type": "visual",
+          "html": "inProgressTaskList"
+        }
       }
     ]
   },
