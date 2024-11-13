@@ -87,17 +87,49 @@ export default function Contribute() {
         return;
       }
 
+      const userResponse = await fetch("https://api.github.com/user", {
+        headers: {
+          Authorization: `Bearer ${githubToken}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      });
+
+      if (!userResponse.ok) {
+        throw new Error("Failed to get user information");
+      }
+
+      const userData = await userResponse.json();
+      const username = userData.login;
+
+      const owner = "AigloOo";
+      const repo = "BalDevCommeBack";
+
+      const forkResponse = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/forks`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${githubToken}`,
+            Accept: "application/vnd.github.v3+json",
+          },
+        }
+      );
+
+      if (!forkResponse.ok) {
+        throw new Error("Failed to fork repository");
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+
       const sanitizedTitle = formData.title
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/(^-|-$)/g, "");
 
       const branchName = `doc-${sanitizedTitle}-${Date.now()}`;
-      const owner = "AigloOo";
-      const repo = "BalDevCommeBack";
 
       const mainBranchResponse = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/git/ref/heads/main`,
+        `https://api.github.com/repos/${username}/${repo}/git/ref/heads/main`,
         {
           headers: {
             Authorization: `Bearer ${githubToken}`,
@@ -122,7 +154,7 @@ export default function Contribute() {
       const mainSha = mainBranchData.object.sha;
 
       const treeResponse = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/git/trees/${mainSha}`,
+        `https://api.github.com/repos/${username}/${repo}/git/trees/${mainSha}`,
         {
           headers: {
             Authorization: `Bearer ${githubToken}`,
@@ -137,7 +169,7 @@ export default function Contribute() {
       }
 
       const createBranchResponse = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/git/refs`,
+        `https://api.github.com/repos/${username}/${repo}/git/refs`,
         {
           method: "POST",
           headers: {
@@ -158,7 +190,7 @@ export default function Contribute() {
       }
 
       const fileResponse = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/contents/src/data/documentation.json?ref=main`,
+        `https://api.github.com/repos/${username}/${repo}/contents/src/data/documentation.json?ref=main`,
         {
           headers: {
             Authorization: `Bearer ${githubToken}`,
@@ -198,7 +230,7 @@ export default function Contribute() {
       };
 
       const updateFileResponse = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/contents/src/data/documentation.json`,
+        `https://api.github.com/repos/${username}/${repo}/contents/src/data/documentation.json`,
         {
           method: "PUT",
           headers: {
@@ -221,7 +253,7 @@ export default function Contribute() {
       }
 
       const prResponse = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/pulls`,
+        `https://api.github.com/repos/${username}/${repo}/pulls`,
         {
           method: "POST",
           headers: {
@@ -232,7 +264,7 @@ export default function Contribute() {
           body: JSON.stringify({
             title: `Add documentation: ${formData.title}`,
             body: `Added new documentation section for ${formData.title}`,
-            head: branchName,
+            head: `${username}:${branchName}`,
             base: "main",
           }),
         }
@@ -243,7 +275,7 @@ export default function Contribute() {
         throw new Error(`Failed to create PR: ${errorData.message}`);
       }
 
-      alert("Documentation submitted successfully!");
+      alert(t("contribute.page.submit.success"));
       setFormData({
         category: "javascript",
         title: "",

@@ -127,7 +127,7 @@ export default {
       previewContent: "Contenu de l'Aperçu",
       token: "Token d'Accès Personnel GitHub",
       tokenHelp:
-        "Créez un token avec la portée 'repo' dans Paramètres GitHub → Paramètres développeur → Tokens d'accès personnel",
+        "Créez un token avec la portée 'repo' dans Paramètres GitHub → Paramètres développeur → Tokens d'accès personnel. Le token nécessite un accès complet 'repo' pour forker le dépôt et créer des pull requests.",
       submit: "Soumettre la Documentation",
     },
     emptySection: {
@@ -174,7 +174,7 @@ export default {
         token: {
           label: "Token d'Accès Personnel GitHub",
           placeholder: "ghp_votre_token_ici",
-          help: "Créez un token avec la portée 'repo' dans Paramètres GitHub → Paramètres développeur → Tokens d'accès personnel",
+          help: "Créez un token avec la portée 'repo' dans Paramètres GitHub → Paramètres développeur → Tokens d'accès personnel. Le token nécessite un accès complet 'repo' pour forker le dépôt et créer des pull requests.",
         },
       },
       submit: {

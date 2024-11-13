@@ -127,7 +127,7 @@ export default {
       previewContent: "Preview Content",
       token: "GitHub Personal Access Token",
       tokenHelp:
-        "Create a token with 'repo' scope at GitHub Settings → Developer settings → Personal access tokens",
+        "Create a token with 'repo' scope at GitHub Settings → Developer settings → Personal access tokens. The token needs full 'repo' access to fork the repository and create pull requests.",
       submit: "Submit Documentation",
     },
     sidebar: {
@@ -169,7 +169,7 @@ export default {
         token: {
           label: "GitHub Personal Access Token",
           placeholder: "ghp_your_token_here",
-          help: "Create a token with 'repo' scope at GitHub Settings → Developer settings → Personal access tokens",
+          help: "Create a token with 'repo' scope at GitHub Settings → Developer settings → Personal access tokens. The token needs full 'repo' access to fork the repository and create pull requests.",
         },
       },
       submit: {
